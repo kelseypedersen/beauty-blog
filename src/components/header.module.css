@@ -1,0 +1,11 @@
+.header {
+  background: #f3f6f6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.header a {
+  text-decoration: none;
+  text-transform: uppercase;
+}
