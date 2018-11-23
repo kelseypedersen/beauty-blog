@@ -9,7 +9,6 @@ class RootIndex extends React.Component {
     const siteTitle = get(this, 'props.data.site.siteMetadata.title')
     const posts = get(this, 'props.data.allContentfulBlogPost.edges')
     const [author] = get(this, 'props.data.allContentfulPerson.edges')
-    const featuredPost = get(this, 'props.data.featuredContentfulBlogPost.edges')
 
     return (
       <div className="content" style={{ background: '#fff' }}>
@@ -22,9 +21,6 @@ class RootIndex extends React.Component {
         <Hero data={author.node} />
         <div className="wrapper">
           <h2 className="section-headline">Recent articles</h2>
-          <div className="featured-article">
-            <ArticlePreview article={featuredArticle} />
-          </div>
           <ul className="article-list">
             {posts.map(({ node }) => {
               return (
@@ -45,26 +41,6 @@ export default RootIndex
 
 export const pageQuery = graphql`
   query HomeQuery {
-    featuredContentfulBlogPost(filter: { tag: { eq: "featured" } }) {
-      edges {
-        node {
-          title
-          slug
-          publishDate(formatString: "MMMM Do, YYYY")
-          tags
-          heroImage {
-            sizes(maxWidth: 350, maxHeight: 196, resizingBehavior: SCALE) {
-             ...GatsbyContentfulSizes_tracedSVG
-            }
-          }
-          description {
-            childMarkdownRemark {
-              html
-            }
-          }
-        }
-      }
-    }
     allContentfulBlogPost(sort: { fields: [publishDate], order: DESC }) {
       edges {
         node {
