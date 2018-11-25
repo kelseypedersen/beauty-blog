@@ -1,7 +1,6 @@
 import React from 'react'
 import get from 'lodash/get'
 import Helmet from 'react-helmet'
-import Hero from '../components/hero'
 import ArticlePreview from '../components/article-preview'
 
 class RootIndex extends React.Component {
@@ -12,13 +11,8 @@ class RootIndex extends React.Component {
 
     return (
       <div className="content" style={{ background: '#fff' }}>
-
-      <div className="sidebar">
-        This is the sidebar! More sidebar please.
-      </div>
       <div className="main">
         <Helmet title={siteTitle} />
-        <Hero data={author.node} />
         <div className="wrapper">
           <h2 className="section-headline">Recent articles</h2>
           <ul className="article-list">
