@@ -19,6 +19,10 @@
 - **[Contentful](https://www.contentful.com)**: the CMS system, serving the back-end data
 - **[Netlify](https://www.netlify.com)**: the deployment system, pushes our code live
 
+#### Ways to Update the Site (by triggering deploy through Netlify)
+1) Merge new code into master on this `gatsby-contentful-blog` repo
+2) Update content on Contentful CMS
+
 #### Dev Environments
 - `production`
 - `deploy-preview`
