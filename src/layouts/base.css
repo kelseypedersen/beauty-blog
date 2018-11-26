@@ -7,11 +7,13 @@
 }
 
 body {
+  color: #373F49;
+  float: none !important;
   font-family: "Avenir", Tahoma, Arial, Helvetica, sans-serif;
   font-size: 1em;
   line-height: 1.65;
-  color: #373F49;
-  margin: 0;
+  max-width: 1080px;
+  margin: 0 auto !important;
 }
 
 img {
@@ -28,6 +30,9 @@ h3 {
 
 a {
   color: currentColor;
+  cursor: pointer;
+  font-family: "Georgia", "Times New Roman", serif;
+  text-decoration: none;
 }
 
 .wrapper {
@@ -44,9 +49,13 @@ a {
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 5vmin;
 }
+
+  .article-list a {
+    font-size: 1.25rem;;
+  }
 
 /**
  *
