@@ -1,80 +1,119 @@
 import React from 'react'
+import styled from 'styled-components'    // Used to include css in this JS
 import get from 'lodash/get'
 import Helmet from 'react-helmet'
 import ArticlePreview from '../components/article-preview'
+import { StaticQuery, graphql } from 'gatsby'
 
-class RootIndex extends React.Component {
-  render() {
-    const siteTitle = get(this, 'props.data.site.siteMetadata.title')
-    const posts = get(this, 'props.data.allContentfulBlogPost.edges')
-    const [author] = get(this, 'props.data.allContentfulPerson.edges')
+// Ordered by use in the component
 
-    return (
-      <div className="content" style={{ background: '#fff' }}>
-      <div className="main">
-        <Helmet title={siteTitle} />
-        <div className="wrapper">
-          <h2 className="section-headline">The Latest</h2>
-          <ul className="article-list">
-            {posts.map(({ node }) => {
-              return (
-                <li key={node.slug}>
-                  <ArticlePreview article={node} />
-                </li>
-              )
-            })}
-          </ul>
-        </div>
-        </div>
-      </div>
-    )
-  }
-}
+const LetsFlex = styled.div`
+  background: 'blue';
+  display: flex;
+  flex-direction: column;
+`
+const Sidebar = styled.div`
+  background: 'red';
+`
+const Main = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 3rem auto;
+  max-width: 600px;
+`
+const MostRecentArticles = styled.div`
+  margin: 0 auto;
+  padding: 5vmin 0;
+  width: calc(100% - 10vmin);
+`
+const SectionHeadline = styled.h2`
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 5vmin 0;
+  padding: 0 0 0.4em 0;
+`
+const ArticleList = styled.ul`
+  display: grid;
+  grid-gap: 5vmin;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`
+
+const RootIndex = () => (
+  <StaticQuery
+    query={graphql`
+      query HomeQuery {
+        site {
+          siteMetadata {
+            title
+          }
+        }
+        allContentfulBlogPost(sort: { fields: [publishDate], order: DESC }) {
+          edges {
+            node {
+              title
+              slug
+              publishDate(formatString: "MMMM Do, YYYY")
+              tags
+              heroImage {
+                sizes(maxWidth: 350, maxHeight: 196, resizingBehavior: SCALE) {
+                  ...GatsbyContentfulSizes_tracedSVG
+                }
+              }
+              description {
+                childMarkdownRemark {
+                  html
+                }
+              }
+            }
+          }
+        }
+        allContentfulPerson(filter: { id: { eq: "c15jwOBqpxqSAOy2eOO4S0m" } }) {
+          edges {
+            node {
+              name
+              shortBio {
+                shortBio
+              }
+              title
+              heroImage: image {
+                sizes(
+                  maxWidth: 1180
+                  maxHeight: 480
+                  resizingBehavior: PAD
+                  background: "rgb:000000"
+                ) {
+                  ...GatsbyContentfulSizes_tracedSVG
+                }
+              }
+            }
+          }
+        }
+      }
+    `}
+    render={data => (
+      <LetsFlex>
+        <Sidebar></Sidebar>
+        <Main>
+          <Helmet title={data.site.siteMetadata.title} />
+          <MostRecentArticles>
+            <SectionHeadline>The Latest</SectionHeadline>
+            <ArticleList>
+              { data.allContentfulBlogPost.edges.map(({ node }) => {
+                return (
+                  <li key={node.slug}>
+                    <ArticlePreview article={node} />
+                  </li>
+                )
+              })}
+            </ArticleList>
+          </MostRecentArticles>
+        </Main>
+      </LetsFlex>
+    )}
+  />
+)
 
 export default RootIndex
 
-export const pageQuery = graphql`
-  query HomeQuery {
-    allContentfulBlogPost(sort: { fields: [publishDate], order: DESC }) {
-      edges {
-        node {
-          title
-          slug
-          publishDate(formatString: "MMMM Do, YYYY")
-          tags
-          heroImage {
-            sizes(maxWidth: 350, maxHeight: 196, resizingBehavior: SCALE) {
-             ...GatsbyContentfulSizes_tracedSVG
-            }
-          }
-          description {
-            childMarkdownRemark {
-              html
-            }
-          }
-        }
-      }
-    }
-    allContentfulPerson(filter: { id: { eq: "c15jwOBqpxqSAOy2eOO4S0m" } }) {
-      edges {
-        node {
-          name
-          shortBio {
-            shortBio
-          }
-          title
-          heroImage: image {
-            sizes(
-              maxWidth: 1180
-              maxHeight: 480
-              resizingBehavior: PAD
-              background: "rgb:000000"
-            ) {
-              ...GatsbyContentfulSizes_tracedSVG
-            }
-          }
-        }
-      }
-    }
-  }
-`

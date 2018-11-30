@@ -1,21 +1,30 @@
 {
   "name": "gatsby-contentful-starter",
   "description": "Starter Contentful Gatsby Blog",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "Stefan Judis <stefanjudis@gmail.com>",
   "bugs": {
     "url": "https://github.com/contentful-userland/gatsby-contentful-starter/issues"
   },
   "dependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "babel-plugin-styled-components": "^1.9.1",
+    "babel-preset-gatsby": "^0.1.5",
+    "babel-preset-react": "^6.24.1",
     "gatsby-image": "^1.0.55",
-    "gatsby-link": "^1.6.46",
+    "gatsby-link": "^2.0.6",
     "gatsby-plugin-manifest": "^2.0.10",
     "gatsby-plugin-offline": "^2.0.17",
-    "gatsby-plugin-react-helmet": "^1.0.8",
-    "gatsby-plugin-sharp": "^1.6.46",
-    "gatsby-source-contentful": "^1.3.54",
-    "gatsby-transformer-remark": "^1.7.44",
-    "lodash": "^4.17.4"
+    "gatsby-plugin-react-helmet": "^3.0.2",
+    "gatsby-plugin-sharp": "^2.0.13",
+    "gatsby-plugin-styled-components": "^3.0.3",
+    "gatsby-source-contentful": "^2.0.15",
+    "gatsby-transformer-remark": "^2.1.13",
+    "lodash": "^4.17.4",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-helmet": "^5.2.0",
+    "styled-components": "^4.1.2"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
@@ -23,7 +32,7 @@
     "contentful-import": "^7.0.4",
     "eslint": "^4.15.0",
     "eslint-plugin-react": "^7.5.1",
-    "gatsby": "^1.9.277",
+    "gatsby": "^2.0.57",
     "gh-pages": "^1.2.0",
     "inquirer": "^6.0.0",
     "prettier": "^1.10.2",
