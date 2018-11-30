@@ -1,5 +1,6 @@
 {
-  presets: [
+  "plugins": ["babel-plugin-styled-components"],
+  "presets": [
     [
       "babel-preset-gatsby",
       {

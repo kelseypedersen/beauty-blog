@@ -4,26 +4,25 @@ import get from 'lodash/get'
 import Helmet from 'react-helmet'
 import ArticlePreview from '../components/article-preview'
 import { StaticQuery, graphql } from 'gatsby'
+import Layout from "../components/layout"
 
 // Ordered by use in the component
 
 const LetsFlex = styled.div`
-  background: 'blue';
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 `
 const Sidebar = styled.div`
-  background: 'red';
+  margin: 1.5rem;
+  width: calc(100% / 3 * 1);
 `
 const Main = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 3rem auto;
-  max-width: 600px;
+  width: calc(100% / 3 * 2);
 `
 const MostRecentArticles = styled.div`
-  margin: 0 auto;
-  padding: 5vmin 0;
+  margin: 1.5rem;
   width: calc(100% - 10vmin);
 `
 const SectionHeadline = styled.h2`
@@ -93,24 +92,34 @@ const RootIndex = () => (
       }
     `}
     render={data => (
-      <LetsFlex>
-        <Sidebar></Sidebar>
-        <Main>
-          <Helmet title={data.site.siteMetadata.title} />
-          <MostRecentArticles>
-            <SectionHeadline>The Latest</SectionHeadline>
-            <ArticleList>
-              { data.allContentfulBlogPost.edges.map(({ node }) => {
-                return (
-                  <li key={node.slug}>
-                    <ArticlePreview article={node} />
-                  </li>
-                )
-              })}
-            </ArticleList>
-          </MostRecentArticles>
-        </Main>
-      </LetsFlex>
+      <Layout>
+        <LetsFlex>
+          <Main>
+            <Helmet title={data.site.siteMetadata.title} />
+            <MostRecentArticles>
+              <SectionHeadline>The Latest</SectionHeadline>
+              <ArticleList>
+                { data.allContentfulBlogPost.edges.map(({ node }) => {
+                  return (
+                    <li key={node.slug}>
+                      <ArticlePreview article={node} />
+                    </li>
+                  )
+                })}
+              </ArticleList>
+            </MostRecentArticles>
+          </Main>
+          <Sidebar>
+            { data.allContentfulBlogPost.edges.map(({ node }) => {
+              return (
+                <li key={node.slug}>
+                  <ArticlePreview article={node} />
+                </li>
+              )
+            })}
+          </Sidebar>
+        </LetsFlex>
+      </Layout>
     )}
   />
 )
