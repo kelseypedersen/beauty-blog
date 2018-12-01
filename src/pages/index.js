@@ -3,6 +3,7 @@ import styled from 'styled-components'    // Used to include css in this JS
 import get from 'lodash/get'
 import Helmet from 'react-helmet'
 import ArticlePreview from '../components/article-preview'
+import Sidebar from '../components/sidebar'
 import { StaticQuery, graphql } from 'gatsby'
 import Layout from "../components/layout"
 
@@ -12,9 +13,10 @@ const LetsFlex = styled.div`
   display: flex;
   flex-direction: row;
 `
-const Sidebar = styled.div`
+const SidebarList = styled.div`
   margin: 1.5rem;
   width: calc(100% / 3 * 1);
+  list-style: none;
 `
 const Main = styled.div`
   display: flex;
@@ -25,11 +27,12 @@ const MostRecentArticles = styled.div`
   margin: 1.5rem;
   width: calc(100% - 10vmin);
 `
-const SectionHeadline = styled.h2`
+const SectionHeadline = styled.h3`
   border-bottom: 1px solid #ddd;
   margin: 0 0 5vmin 0;
   padding: 0 0 0.4em 0;
 `
+
 const ArticleList = styled.ul`
   display: grid;
   grid-gap: 5vmin;
@@ -109,15 +112,16 @@ const RootIndex = () => (
               </ArticleList>
             </MostRecentArticles>
           </Main>
-          <Sidebar>
+          <SidebarList>
+            <SectionHeadline>Most Popular</SectionHeadline>
             { data.allContentfulBlogPost.edges.map(({ node }) => {
               return (
                 <li key={node.slug}>
-                  <ArticlePreview article={node} />
+                  <Sidebar article={node} />
                 </li>
               )
             })}
-          </Sidebar>
+          </SidebarList>
         </LetsFlex>
       </Layout>
     )}
